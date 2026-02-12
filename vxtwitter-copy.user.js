@@ -27,7 +27,15 @@
 			return;
 		}
 
+		// Convert twitter share URL to BetterTwitFix hostname
 		const betterTwitFix = selection.replace(twitterMatchRegex, 'vxtwitter.com');
-		event.clipboardData.setData('text/plain', betterTwitFix);
+
+		// If present, remove search parameters
+		const searchParamsIdx = betterTwitFix.indexOf('?');
+		const trimmedEndIdx = searchParamsIdx != -1 ? searchParamsIdx : betterTwitFix.length - 1;
+		const trimmedUrl = betterTwitFix.substring(0, trimmedEndIdx);
+
+		// Copy share URL back into clipboard
+		event.clipboardData.setData('text/plain', trimmedUrl);
 	});
 })();
